@@ -21,7 +21,19 @@ def emotion_detector(text_to_analyse: str) -> dict:
 
     response = requests.post(url, json=payload, headers=headers)
 
-    if response.status_code != 200:
+    status_code = response.status_code
+
+    if status_code == 400:
+        return {
+            "anger": None,
+            "disgust": None,
+            "fear": None,
+            "joy": None,
+            "sadness": None,
+            "dominant_emotion": None,
+        }
+
+    if status_code != 200:
         return {}
 
     formatted_response = response.json()

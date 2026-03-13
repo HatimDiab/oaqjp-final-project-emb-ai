@@ -31,6 +31,8 @@ def em_detector():
     """
     text_to_analyze = request.args.get("textToAnalyze")
     response = emotion_detector(text_to_analyze) or {}
+    if not response.get("dominant_emotion"):
+        return "Invalid text! Please try again!"
     return format_emotion_response(response)
 
 
